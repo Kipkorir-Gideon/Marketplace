@@ -2,15 +2,67 @@
 
 {% load static %}
 
-{% block title %} | Item {% endblock %}
+{% load humanize %}
+
+{% block title %} | {{ item.name }} {% endblock %}
 
 {% block content %}
 
 
-<section>
+<section class="py-4">
     <div class="container">
         <div class="row">
-            <h1 class="text-center">Items Page</h1>
+            <div class="col-md-6">
+                <img src="{{ item.image.url }}" alt="{{ item.name }}" class="img-main img-fluid mb-3">
+            </div>
+            <div class="col-md-6">
+                <h1 class="display-4">
+                    {{ item.name }}
+                </h1>
+                <p>
+                    <strong>Price: </strong>{{ item.price | intcomma }}
+                </p>
+                <p>
+                    <strong>Seller: </strong>{{ item.created_by }}
+                </p>
+                {% if item.description %}
+                <p>
+                    <strong>Description: </strong><br>{{ item.description }}
+                </p>
+                {% endif %}
+
+                <button class="btn btn-outline-info btn-block btn-lg" data-toggle="modal" data-target="#inquiryModal">Contact Seller</button>
+            </div>
+        </div>
+        <h2 class="text-center m-4">Related Items</h2>
+        <div class="row">
+            {% if related_items %} 
+            {% for related_item in related_items %}
+            <div class="col-md-6 col-lg-4 mb-4">
+              <div class="card">
+                <a href="{% url 'item' related_item.id %}">
+                  <img
+                    class="card-img-top"
+                    src="{{ related_item.image.url }}"
+                    alt="{{ related_item.name }}"
+                  />
+                  <div class="card-img-overlay">
+                    <h2>
+                      <span class="badge badge-secondary text-white"
+                        >{{ related_item.price | intcomma }}</span
+                      >
+                    </h2>
+                  </div>
+                  <div class="card-body">
+                    <div class="text-center">
+                      <h4 class="text-primary">{{ related_item.name }}</h4>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+            {% endfor %} 
+            {% endif %}
         </div>
     </div>
 </section>

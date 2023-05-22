@@ -1,19 +1,65 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} 
 
-{% load static %}
+{% load humanize %} 
 
-{% block title %} | Home {% endblock %}
+{% load static %} 
+
+{% block title %} | Home {% endblock %} 
 
 {% block content %}
 
-
-<section>
-    <div class="container">
-        <div class="row">
-            <h1 class="text-center">Welcome to the MarketPlace</h1>
+<section class="py-5">
+  <div class="container">
+    <h2 class="text-center mb-3">Newest Items</h2>
+    <div class="row">
+      {% if items %} 
+      {% for item in items %}
+      <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card">
+          <a href="{% url 'item' item.id %}">
+            <img
+              class="card-img-top"
+              src="{{ item.image.url }}"
+              alt="{{ item.name }}"
+            />
+            <div class="card-img-overlay">
+              <h2>
+                <span class="badge badge-secondary text-white"
+                  >{{ item.price | intcomma }}</span
+                >
+              </h2>
+            </div>
+            <div class="card-body">
+              <div class="text-center">
+                <h4 class="text-primary">{{ item.name }}</h4>
+              </div>
+            </div>
+          </a>
         </div>
+      </div>
+      {% endfor %} 
+      {% endif %}
     </div>
+    <h2 class="text-center m-5">Categories</h2>
+    <div class="row">
+      {% if categories %} 
+      {% for category in categories %}
+      <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card">
+          <a href="">
+            <div class="card-body">
+              <div class="text-left">
+                <h2 class="text-primary">{{ category.name }}</h2>
+                <p>{{ category.items.count }} items</p>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+      {% endfor %} 
+      {% endif %}
+    </div>
+  </div>
 </section>
-
 
 {% endblock %}
