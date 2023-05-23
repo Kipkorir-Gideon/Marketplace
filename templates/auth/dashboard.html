@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %} | Dashboard {% endblock %}
+
+{% block content %}
+
+<!-- Alerts -->
+{% include 'partials/_messages.html' %}
+
+<section id="showcase-inner" class="py-5 text-white">
+    <div class="container">
+      <div class="row text-center">
+        <div class="col-md-12">
+          <h1 class="display-4">Your Dashboard</h1>
+          <p class="lead">See all your items and manage your account.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="dashboard" class="py-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h2>Welcome {{ user.username }}</h2>
+          {% if items %}
+            <p>Here are the items that you are selling.</p>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Item ID</th>
+                  <th scope="col">Item</th>
+                  <th scope="col">Posted Date</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for item in items %}
+                  <tr>
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.created_at }}</td>
+                    <td>
+                      <a class="btn btn-primary" href="{% url 'item' item.id %}">View Item</a>
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          {% else %}
+            <p>You have not posted any items.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </section>
+
+{% endblock %}
