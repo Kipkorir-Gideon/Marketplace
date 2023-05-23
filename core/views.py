@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib import messages, auth
 
 from item.models import Item, Category
 
@@ -31,3 +32,13 @@ def signup(request):
     }
 
     return render(request, 'auth/signup.html', context)
+
+def logout(request): 
+    if request.method == 'POST':
+        auth.logout(request)
+        messages.success(request, 'Logged Out Successfully')
+        next_url = request.POST.get('next')
+        if next_url and next_url.startswith('/') and not next_url.startswith('//'):
+            return redirect(next_url)
+        else:
+            return redirect('index')

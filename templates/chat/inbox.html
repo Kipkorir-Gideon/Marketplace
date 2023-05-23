@@ -1,0 +1,75 @@
+{% extends 'base.html' %} 
+
+{% block title %} | Inbox {% endblock %} 
+
+{% block content %}
+
+<!-- Alerts -->
+{% include 'partials/_messages.html' %}
+
+<section id="showcase-inner" class="py-5 text-white">
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-md-12">
+        <h1 class="display-4">Your Inbox</h1>
+        <p class="lead">See all the chats.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="dashboard" class="py-4">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h2>Hello {{ user.username }}</h2>
+        {% if chats %}
+        <p>Here are all your inbox.</p>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Item Image</th>
+              <th scope="col">Sender</th>
+              <th scope="col">Posted Date</th>
+              <th scope="col">Item Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for chat in chats %}
+            <a href="{% url 'chat_detail' chat.id %}">
+              <tr>
+                <td>
+                  <img
+                    src="{{ chat.item.image.url }}"
+                    alt=""
+                    width="auto"
+                    height="100"
+                  />
+                </td>
+                <td>
+                  {% for member in chat.members.all %} 
+                  {% if member != request.user %}
+                  <strong>{{ member.username }}</strong>
+                  {% endif %} 
+                  {% endfor %}
+                </td>
+                <td>{{ chat.modified_at }}</td>
+                <td class="lead font-weight-bold">
+                  <a href="{% url 'chat_detail' chat.id %}"
+                    >{{ chat.item.name }}</a
+                  >
+                </td>
+              </tr>
+            </a>
+            {% endfor %}
+          </tbody>
+        </table>
+        {% else %}
+        <p>You have no chats.</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

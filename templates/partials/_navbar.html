@@ -11,7 +11,7 @@
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <ul class="navbar-nav ml-auto">
           <li
-            {% if 'about' in request.path %}
+            {% if 'new_item' in request.path %}
             class="nav-item active mr-3"
             {% else %}
             class="nav-item mr-3"
@@ -20,7 +20,7 @@
             <a class="nav-link" href="{% url 'new_item' %}">New Item</a>
           </li>
           <li
-            {% if 'destinations' in request.path %}
+            {% if 'items' in request.path %}
             class="nav-item active mr-3"
             {% else %}
             class="nav-item mr-3"
@@ -46,7 +46,16 @@
             class="nav-item mr-3"
           {% endif %}
           >
-            <a class="nav-link bg-info bg-dark px-4" href="#">Inbox</a>
+            <a class="nav-link bg-info bg-dark px-4" href="{% url 'inbox' %}">Inbox</a>
+          </li>
+          <li class="nav-item">
+            <a href="javascript:{document.getElementById('logout').submit()}" class="nav-link">
+              <i class="fas fa-sign-out-alt"></i> logout
+            </a>
+            <form action="{% url 'logout' %}?next={{ request.path }}" method="post" id="logout">
+              {% csrf_token %}
+              <input type="hidden">
+            </form>
           </li>
           {% else %}
           <li 

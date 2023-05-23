@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% load humanize %}
+
+{% block title %} | Details {% endblock %}
+
+{% block content %}
+
+
+<section class="py-4">
+    <div class="container">
+        <div class="row">
+            {% for message in chat.messages.all %}
+            <div class="col-md-12 mb-2 {% if message.created_by == request.user %}bg-info{% else %}bg-dark text-white{% endif %}">
+                <div class="">
+                    <p class="mb-4"><strong>{{ message.created_by.username }}</strong> @ {{ message.created_at }}</p>
+                    <p>{{ message.content }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <form action="" class="mt-4" method="post">
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <input type="submit" value="Send" class="btn btn-info btn-block mt-2">
+        </form>
+    </div>
+</section>
+
+
+{% endblock %}
