@@ -29,7 +29,7 @@
                 <p class="text-center lead font-weight-bold">Categories</p>
                 <ul>
                     {% for category in categories %}
-                    <li class="p-2{% if category.id == category_id %} bg-white{% endif %}">
+                    <li class="p-2{% if category.id == category_id %} bg-white{% endif %} br-5">
                         <a href="{% url 'items' %}?query={{ query }}&category={{ category.id }}">{{ category.name }}</a>
                     </li>
                     {% endfor %}
