@@ -12,23 +12,33 @@
 <section class="py-4">
     <div class="container">
         <div class="row">
-            {% for message in chat.messages.all %}
-            <div class="col-md-12 mb-2 {% if message.created_by == request.user %}bg-info{% else %}bg-dark text-white{% endif %}" style="border-radius:5px">
-                <div class="">
-                    <p class="mb-4"><strong>{{ message.created_by.username }}</strong> @ {{ message.created_at }}</p>
-                    <p>{{ message.content | linebreaks }}</p>
+            <div class="col-md-6">
+                <h2 class="text-primary mb-3">Your Chats</h2>
+                {% if chat.messages %}
+                {% for message in chat.messages.all %}
+                <div class="col-md-12 mb-2 {% if message.created_by == request.user %}bg-info{% else %}bg-dark text-white{% endif %}" style="border-radius:5px">
+                    <div class="">
+                        <p class="mb-4 {% if message.created_by == request.user %}text-primary{% else %}text-info{% endif %}"><em><strong>{{ message.created_by.username }}</strong> on {{ message.created_at }}</em></p>
+                        <p>{{ message.content | linebreaks }}</p>
+                    </div>
                 </div>
+                {% endfor %}
+                {% else %}
+                <div class="col-md-6">
+                    <h4 class="text-center">No Chats Yet.</h4>
+                </div>
+                {% endif %}
             </div>
-            {% endfor %}
+            <div class="col-md-6">
+                <form action="" class="mt-4" method="post">
+                    {% csrf_token %}
+        
+                    {{ form.as_p }}
+        
+                    <input type="submit" value="Send" class="btn btn-info btn-block mt-2">
+                </form>
+            </div>
         </div>
-
-        <form action="" class="mt-4" method="post">
-            {% csrf_token %}
-
-            {{ form.as_p }}
-
-            <input type="submit" value="Send" class="btn btn-info btn-block mt-2">
-        </form>
     </div>
 </section>
 
