@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib import messages
 
 from item.models import Item
 from .models import Chat
@@ -31,6 +32,7 @@ def new_chat(request, item_id):
             chat_message.chat = chat
             chat_message.created_by = request.user
             chat_message.save()
+            messages.success(request, 'Message sent Successfully')
 
             return redirect('item', item_id=item_id)
     else:

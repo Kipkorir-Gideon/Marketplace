@@ -29,16 +29,15 @@
                 <p class="text-center lead font-weight-bold">Categories</p>
                 <ul>
                     {% for category in categories %}
-                    <li class="p-2{% if category.id == category_id %} bg-white{% endif %} br-5">
-                        <a href="{% url 'items' %}?query={{ query }}&category={{ category.id }}">{{ category.name }}</a>
-                    </li>
+                    <a href="{% url 'items' %}?query={{ query }}&category={{ category.id }}" class="text-secondary">
+                        <li class="p-1{% if category.id == category_id %} bg-white{% endif %} mb-1" style="border-radius:5px">
+                            {{ category.name }}
+                        </li>
+                    </a>
                     {% endfor %}
                 </ul>
                 <hr class="my-4 text-white">
-                <p class="text-center lead font-weight-bold">Clear Filters</p>
-                <ul>
-                    <li><a href="{% url 'items' %}" class="bg-warning p-2">Clear Filters</a></li>
-                </ul>
+                <a href="{% url 'items' %}" class="bg-danger p-2 ml-3 text-white">Clear Categories</a>
             </div>
         </div>
         <div class="col-md-10 px-2">

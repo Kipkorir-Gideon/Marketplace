@@ -13,10 +13,10 @@
     <div class="container">
         <div class="row">
             {% for message in chat.messages.all %}
-            <div class="col-md-12 mb-2 {% if message.created_by == request.user %}bg-info{% else %}bg-dark text-white{% endif %}">
+            <div class="col-md-12 mb-2 {% if message.created_by == request.user %}bg-info{% else %}bg-dark text-white{% endif %}" style="border-radius:5px">
                 <div class="">
                     <p class="mb-4"><strong>{{ message.created_by.username }}</strong> @ {{ message.created_at }}</p>
-                    <p>{{ message.content }}</p>
+                    <p>{{ message.content | linebreaks }}</p>
                 </div>
             </div>
             {% endfor %}
