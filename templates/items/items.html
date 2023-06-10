@@ -30,7 +30,7 @@
                 <ul>
                     {% for category in categories %}
                     <a href="{% url 'items' %}?query={{ query }}&category={{ category.id }}" class="text-secondary">
-                        <li class="p-1{% if category.id == category_id %} bg-white{% endif %} mb-1" style="border-radius:5px">
+                        <li class="p-1{% if category.id == category_id %} bg-white{% endif %} mb-1 pl-3" style="border-radius:20px">
                             {{ category.name }}
                         </li>
                     </a>
