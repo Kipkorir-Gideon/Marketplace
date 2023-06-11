@@ -13,26 +13,40 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <h2 class="text-primary mb-3">Your Chats</h2>
-                {% if chat.messages %}
-                {% for message in chat.messages.all %}
-                <div class="col-md-12 mb-2 {% if message.created_by == request.user %}bg-info{% else %}bg-dark text-white{% endif %}" style="border-radius:5px">
-                    <div class="">
-                        <p class="mb-4 {% if message.created_by == request.user %}text-primary{% else %}text-info{% endif %}"><em><strong>
-                            {% if message.created_by == request.user %} You
-                            {% else %}{{ message.created_by.username }}{% endif %}</strong> on {{ message.created_at }}</em></p>
-                        <p>{{ message.content | linebreaks }}</p>
+                <img
+                    src="{{ chat.item.image.url }}"
+                    alt=""
+                    width="100%"
+                    height="auto"
+                />
+                <h4 class="bg-primary text-warning mt-3 p-2 text-center">
+                    {% if chat.item.created_by == request.user %} You are selling this item
+                                {% else %}{{ chat.item.created_by.username }} is selling this item.{% endif %}</strong> 
+                </h4>
+            </div>
+            <div class="col-md-6 text-center">
+                <h2 class="text-primary mb-3">Your Chats on {{ chat.item.name }}</h2>
+                <div class="container">
+                    {% if chat.messages %}
+                    {% for message in chat.messages.all %}
+                    <div class="col-md-12 mb-2 p-2 {% if message.created_by == request.user %}bg-info mx-4{% else %}bg-dark text-white mr-5{% endif %}" style="border-radius:5px">
+                        <div class="text-left">
+                            <p class="mb-0 pb-0 {% if message.created_by == request.user %}text-primary{% else %}text-info{% endif %}"><em><strong>
+                                {% if message.created_by == request.user %} You
+                                {% else %}{{ message.created_by.username }}{% endif %}</strong> on {{ message.created_at }}</em></p>
+                                <hr>
+                            <p>{{ message.content | linebreaks }}</p>
+                        </div>
                     </div>
+                    {% endfor %}
+                    
                 </div>
-                {% endfor %}
                 {% else %}
                 <div class="col-md-6">
                     <h4 class="text-center">No Chats Yet.</h4>
                 </div>
                 {% endif %}
-            </div>
-            <div class="col-md-6">
-                <form action="" class="mt-4" method="post">
+                <form action="" class="mt-5" method="post">
                     {% csrf_token %}
         
                     {{ form.as_p }}

@@ -8,6 +8,6 @@ class ChatMessageForm(forms.ModelForm):
         fields = ('content',)
         widgets = {
             'content': forms.Textarea(attrs={
-                'class': 'form-control'
+                'class': 'form-control', 'rows': 3
             })
         }

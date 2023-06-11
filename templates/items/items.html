@@ -7,9 +7,9 @@
 {% block content %}
 
 
-  <section id="listings" class="py-4">
-      <div class="row">
-        <div class="col-md-2 bg-dark text-white">
+  <section id="listings" class="py-0">
+      <div class="row m-0 p-0">
+        <div class="col-md-2 mx-0 bg-dark text-white fixed-section">
             <h2>Side Bar</h2>
             <div class="my-4">
                 <form action="{% url 'items' %}" method="get">
@@ -21,7 +21,7 @@
                     placeholder="Search Items"
                     />
 
-                    <button class="btn btn-outline-secondary btn-block mt-1" type="submit">
+                    <button class="btn btn-outline-info btn-block mt-1" type="submit">
                         Search
                     </button>
                 </form>
@@ -29,7 +29,7 @@
                 <p class="text-center lead font-weight-bold">Categories</p>
                 <ul>
                     {% for category in categories %}
-                    <a href="{% url 'items' %}?query={{ query }}&category={{ category.id }}" class="text-secondary">
+                    <a href="{% url 'items' %}?query={{ query }}&category={{ category.id }}" class="text-info">
                         <li class="p-1{% if category.id == category_id %} bg-white{% endif %} mb-1 pl-3" style="border-radius:20px">
                             {{ category.name }}
                         </li>
@@ -40,11 +40,11 @@
                 <a href="{% url 'items' %}" class="bg-danger p-2 ml-3 text-white">Clear Categories</a>
             </div>
         </div>
-        <div class="col-md-10 px-2">
-            <div class="row">
+        <div class="col-md-10 px-2 mx-0 scrolling-section">
+            <div class="row m-0 p-0">
                 {% if items %} 
                 {% for item in items %}
-                <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                <div class="col-lg-3 col-md-4 col-sm-6 mb-4 px-2">
                     <div class="card">
                     <a href="{% url 'item' item.id %}">
                         <img
@@ -54,7 +54,7 @@
                         />
                         <div class="card-img-overlay">
                         <h2>
-                            <span class="badge badge-secondary text-white"
+                            <span class="badge badge-info text-white"
                             >{{ item.price | intcomma }}</span
                             >
                         </h2>

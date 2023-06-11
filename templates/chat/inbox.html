@@ -29,7 +29,7 @@
               <th scope="col">Item Image</th>
               <th scope="col">Sender</th>
               <th scope="col">Posted Date</th>
-              <th scope="col">Item Name</th>
+              <th scope="col">Details</th>
             </tr>
           </thead>
           <tbody>
@@ -41,7 +41,7 @@
                     src="{{ chat.item.image.url }}"
                     alt=""
                     width="auto"
-                    height="100"
+                    height="100px"
                   />
                 </td>
                 <td>
@@ -54,7 +54,7 @@
                 <td>{{ chat.modified_at }}</td>
                 <td class="lead font-weight-bold">
                   <a href="{% url 'chat_detail' chat.id %}"
-                    >{{ chat.item.name }}</a
+                    >View Details</a
                   >
                 </td>
               </tr>

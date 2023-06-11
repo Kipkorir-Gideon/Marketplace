@@ -39,6 +39,7 @@ def new_chat(request, item_id):
         form = ChatMessageForm()
 
     context = {
+        'item': item,
         'form': form,
     }
 
