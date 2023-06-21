@@ -115,18 +115,20 @@ a:hover {
   font-size: 0.7rem;
 }
 
-.fixed-section {
-  /* Set the desired height for the fixed section */
-  height: 90vh;
-  /* Make sure the content does not overflow */
-  overflow: hidden;
+.items {
+  display: flex;
 }
 
-.scrolling-section {
-  /* Set the desired height for the scrolling section */
-  min-height: 90vh;
-  /* Allow the content to scroll within the section */
-  overflow-y: scroll;
+.side-bar {
+  width: 20%;
+  position: sticky;
+  top: 0;
+  height: 90vh;
+  overflow-y: auto;
+}
+
+.main-bar {
+  width: 80%;
 }
 
 

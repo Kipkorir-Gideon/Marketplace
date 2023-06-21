@@ -51,7 +51,7 @@
                   {% endif %} 
                   {% endfor %}
                 </td>
-                <td>{{ chat.modified_at }}</td>
+                <td>{{ chat.modified_at|timesince }}</td>
                 <td class="lead font-weight-bold">
                   <a href="{% url 'chat_detail' chat.id %}"
                     >View Details</a

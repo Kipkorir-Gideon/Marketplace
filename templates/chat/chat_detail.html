@@ -33,7 +33,7 @@
                         <div class="text-left">
                             <p class="mb-0 pb-0 {% if message.created_by == request.user %}text-primary{% else %}text-info{% endif %}"><em><strong>
                                 {% if message.created_by == request.user %} You
-                                {% else %}{{ message.created_by.username }}{% endif %}</strong> on {{ message.created_at }}</em></p>
+                                {% else %}{{ message.created_by.username }}{% endif %}</strong> on {{ message.created_at|timesince }}</em></p>
                                 <hr>
                             <p>{{ message.content | linebreaks }}</p>
                         </div>

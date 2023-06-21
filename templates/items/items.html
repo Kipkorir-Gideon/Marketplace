@@ -8,8 +8,8 @@
 
 
   <section id="listings" class="py-0">
-      <div class="row m-0 p-0">
-        <div class="col-md-2 mx-0 bg-dark text-white fixed-section">
+      <div class="row m-0 p-0 items">
+        <div class="col-md-2 mx-0 bg-dark text-white sticky">
             <h2>Side Bar</h2>
             <div class="my-4">
                 <form action="{% url 'items' %}" method="get">
@@ -40,7 +40,7 @@
                 <a href="{% url 'items' %}" class="bg-danger p-2 ml-3 text-white">Clear Categories</a>
             </div>
         </div>
-        <div class="col-md-10 px-2 mx-0 scrolling-section">
+        <div class="col-md-10 px-2 mx-0 main-bar">
             <div class="row m-0 p-0">
                 {% if items %} 
                 {% for item in items %}
