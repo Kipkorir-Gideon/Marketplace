@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-# from routes import router as product_router
+from .routes import router as product_router
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
@@ -13,7 +13,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# app.include_router(product_router)
+app.include_router(product_router)
 
 
 @app.get("/")
