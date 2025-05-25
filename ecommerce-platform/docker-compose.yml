@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  product-catalog:
+    build:
+      context: ./services/product-catalog
+      dockerfile: Dockerfile
+    ports:
+      - "8001:80"
+    networks:
+      - ecommerce-network
+
+  user-management:
+    build:
+      context: ./services/user-management
+      dockerfile: Dockerfile
+    ports:
+      - "8002:80"
+    networks:
+      - ecommerce-network
+
+  order:
+    build:
+      context: ./services/order
+      dockerfile: Dockerfile
+    ports:
+      - "8003:80"
+    networks:
+      - ecommerce-network
+
+  payment:
+    build:
+      context: ./services/payment
+      dockerfile: Dockerfile
+    ports:
+      - "8004:80"
+    networks:
+      - ecommerce-network
+
+  api-gateway:
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
+    ports:
+      - "8000:80"
+    networks:
+      - ecommerce-network
+
+  redis:
+    image: "redis:alpine"
+    ports:
+      - "6379:6379"
+    networks:
+      - ecommerce-network
+
+networks:
+  ecommerce-network:
+    driver: bridge

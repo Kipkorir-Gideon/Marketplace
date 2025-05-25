@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+pydantic
+sqlalchemy
+asyncpg
+pytest
+httpx
+redis
+kafka-python

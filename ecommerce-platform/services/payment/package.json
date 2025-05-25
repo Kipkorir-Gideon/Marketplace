@@ -1,0 +1,19 @@
+{
+  "name": "payment-service",
+  "version": "1.0.0",
+  "description": "Payment service for the e-commerce platform, handling payment processing and refunds.",
+  "main": "app/main.js",
+  "scripts": {
+    "start": "node app/main.js",
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "stripe": "^8.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  },
+  "author": "Your Name",
+  "license": "MIT"
+}
