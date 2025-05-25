@@ -1,0 +1,36 @@
+# tests/order/test_order_service.py
+
+import pytest
+from fastapi.testclient import TestClient
+from services.order.app.main import app
+
+client = TestClient(app)
+
+def test_create_order():
+    response = client.post("/orders", json={"items": [{"product_id": 1, "quantity": 2}]})
+    assert response.status_code == 201
+    assert "order_id" in response.json()
+
+def test_get_order():
+    response = client.get("/orders/1")
+    assert response.status_code == 200
+    assert "order_id" in response.json()
+
+def test_update_order_status():
+    response = client.put("/orders/1/status", json={"status": "shipped"})
+    assert response.status_code == 200
+    assert response.json()["status"] == "shipped"
+
+def test_list_user_orders():
+    response = client.get("/orders/user/1")
+    assert response.status_code == 200
+    assert isinstance(response.json(), list)
+
+def test_order_not_found():
+    response = client.get("/orders/999")
+    assert response.status_code == 404
+
+def test_create_order_invalid_data():
+    response = client.post("/orders", json={"items": []})
+    assert response.status_code == 400
+    assert "detail" in response.json()
