@@ -1,9 +1,24 @@
-from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
-from sqlalchemy.orm import sessionmaker, declarative_base
+from sqlalchemy import create_engine
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
+from .config import settings
 
-DATABASE_URL = "postgresql+asyncpg://ngetich:.ecommerce@localhost:5432/product_catalog"
 
-engine = create_async_engine(DATABASE_URL, echo=True)
-SessionLocal = sessionmaker(bind=engine, class_=AsyncSession, expire_on_commit=False)
-
+# PostgreSQL (for transactional data)
+engine = create_engine(settings.DATABASE_URL)
+SessionLocal = sessionmaker(autocommit=False, bind=engine)
 Base = declarative_base()
+
+# MongoDB (for product documents)
+from motor.motor_asyncio import AsyncIOMotorClient
+mongo_client = AsyncIOMotorClient(settings.MONGO_URL)
+mongo_db = mongo_client.get_default_database()
+
+
+def get_db():
+    """Dependency to get a database session."""
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()

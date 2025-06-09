@@ -1,39 +1,22 @@
-from sqlalchemy import Column, Integer, String, Float, Text
-from sqlalchemy.ext.declarative import declarative_base
-from pydantic import BaseModel
-from typing import Optional
+from sqlalchemy import Column, Integer, String, Float, ForeignKey, Text
 from .database import Base
 
 
-class ProductBase(BaseModel):
-    name: str
-    description: Optional[str] = None
-    price: float
-    stock: int
-    image_url: Optional[str] = None
+class Category(Base):
+    __tablename__ = "categories"
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String(50), unique=True)
+    description = Column(String(200))
 
 
-class ProductORM(Base):
+class Product(Base):
     __tablename__ = "products"
 
     id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, nullable=False)
+    name = Column(String(255), nullable=False, index=True)
     description = Column(Text)
     price = Column(Float, nullable=False)
     stock = Column(Integer, nullable=False)
-    image_url = Column(String)
-
-
-class ProductCreate(ProductBase):
-    pass
-
-
-class ProductUpdate(ProductBase):
-    pass
-
-
-class Product(ProductBase):
-    id: int
-
-    class Config:
-        orm_mode = True
+    category_id = Column(Integer, ForeignKey("categories.id"))
+    sku = Column(String(50), unique=True)
+    image_url = Column(String(255))
